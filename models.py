@@ -19,20 +19,20 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.String, primary_key=True)
-    first_name = db.Column(db.String(150), nullable=True, default='')
-    last_name = db.Column(db.String(150), nullable = True, default = '')
+    first_name = db.Column(db.String(150), nullable=False, default='')
+    last_name = db.Column(db.String(150), nullable = False, default = '')
     email = db.Column(db.String(150), nullable = False)
     password = db.Column(db.String, nullable = True, default = '')
     g_auth_verify = db.Column(db.Boolean, default = False)
     token = db.Column(db.String, default = '', unique = True )
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
-    def __init__(self, email, first_name='', last_name='', password='', token='', g_auth_verify=False):
+    def __init__(self, email, first_name ='', last_name='', password='', token='', g_auth_verify=False):
         self.id = self.set_id()
         self.first_name = first_name
         self.last_name = last_name
-        self.password = self.set_password(password)
         self.email = email
+        self.password = self.set_password(password)
         self.token = self.set_token(24)
         self.g_auth_verify = g_auth_verify
 
@@ -46,6 +46,15 @@ class User(db.Model, UserMixin):
         self.pw_hash = generate_password_hash(password)
         return self.pw_hash
 
+    # def set_first_name(self, first_name):
+    #     return self.first_name
+    
+    # def set_last_name(self, last_name):
+    #     return self.last_name
+    
+    # def set_name(self, name):
+    #     return self.name
+
     def __repr__(self):
         return f'User {self.email} has been added to the database'
     
@@ -57,9 +66,9 @@ class Contact(db.Model):
     address = db.Column(db.String(200))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, name, email, phone_number, address, user_token, id = ''):
+    def __init__(self, name, first_name, last_name, email, phone_number, address, user_token, id = ''):
         self.id = self.set_id()
-        self.name = name
+        self.name = first_name + ' ' + last_name
         self.email = email
         self.phone_number = phone_number
         self.address = address
@@ -74,7 +83,7 @@ class Contact(db.Model):
 
 class ContactSchema(ma.Schema):
     class Meta:
-        fields = ['id', 'name','email','phone_number', 'address']
+        fields = ['id', 'name', 'email','phone_number', 'address']
 
 contact_schema = ContactSchema()
 contacts_schema = ContactSchema(many=True)

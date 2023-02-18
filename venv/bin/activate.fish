@@ -29,7 +29,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/DVJones/Documents/Programming/CodingTemple/ProgrammingCoursework/Module5_Flask/Flask_API_Homework_2_Create_a_User_Form_and_User_Database_For_Car_Collection_API/venv"
+set -gx VIRTUAL_ENV "/Users/DVJones/Documents/Programming/CodingTemple/ProgrammingCoursework/Module5_Flask/Flask_API_Homework_2/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
