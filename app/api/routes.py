@@ -11,7 +11,7 @@ def getdata():
 @api.route('/contacts', methods = ['POST'])
 @token_required
 def create_contact(current_user_token):
-    name = request.json['name']
+    # username = request.json['username']
     first_name = request.json['first_name']
     last_name = request.json['last_name']
     email = request.json['email']
@@ -21,7 +21,7 @@ def create_contact(current_user_token):
 
     print(f'Car Collector: {current_user_token.token}')
 
-    contact = Contact(name, first_name, last_name, email, phone_number, address, user_token = user_token )
+    contact = Contact(first_name, last_name, email, phone_number, address, user_token = user_token )
 
     db.session.add(contact)
     db.session.commit()
@@ -61,7 +61,7 @@ def get_single_contact(current_user_token, id):
 @token_required
 def update_contact(current_user_token,id):
     contact = Contact.query.get(id) 
-    contact.name = request.json['name']
+    # contact.username = request.json['username']
     contact.email = request.json['email']
     contact.first_name = request.json['first_name']
     contact.last_name = request.json['last_name']

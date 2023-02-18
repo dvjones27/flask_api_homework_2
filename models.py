@@ -27,12 +27,12 @@ class User(db.Model, UserMixin):
     token = db.Column(db.String, default = '', unique = True )
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
-    def __init__(self, email, first_name ='', last_name='', password='', token='', g_auth_verify=False):
+    def __init__(self, email, first_name='', last_name='', password='', token='', g_auth_verify=False):
         self.id = self.set_id()
         self.first_name = first_name
         self.last_name = last_name
-        self.email = email
         self.password = self.set_password(password)
+        self.email = email
         self.token = self.set_token(24)
         self.g_auth_verify = g_auth_verify
 
@@ -66,9 +66,9 @@ class Contact(db.Model):
     address = db.Column(db.String(200))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, name, first_name, last_name, email, phone_number, address, user_token, id = ''):
+    def __init__(self, name, email, phone_number, address, user_token, id = ''):
         self.id = self.set_id()
-        self.name = first_name + ' ' + last_name
+        self.name = name
         self.email = email
         self.phone_number = phone_number
         self.address = address
