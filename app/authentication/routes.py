@@ -18,7 +18,6 @@ def signup():
 
     try:
         if request.method == 'POST' and form.validate_on_submit():
-            # username = form.username.data
             first_name = form.first_name.data
             last_name = form.last_name.data
             email = form.email.data
@@ -26,12 +25,6 @@ def signup():
             print(email, first_name, last_name, password)
 
             user = User(email, first_name, last_name, password = password)
-
-            # user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
-            
-            # if user: # if a user is found, we want to redirect back to signup page so user can try again.
-            #     flash('Email address already exists. Please sign in.')
-            #     return redirect(url_for('auth.sign_in'))
 
             db.session.add(user)
             db.session.commit()
@@ -52,7 +45,6 @@ def signin():
     
     try:
         if request.method == 'POST' and form.validate_on_submit():
-            # username = form.username.data
             email = form.email.data
             password = form.password.data
             print(email, password)
