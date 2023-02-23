@@ -44,7 +44,6 @@ def signin():
     form = UserSigninForm()
     
     try:
-        print('Before If')
         if request.method == 'POST' and form.validate_on_submit():
             email = form.email.data
             password = form.password.data
